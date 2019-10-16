@@ -9,14 +9,14 @@ class GoLinkPager extends LinkPager
 {
     // 是否包含跳转功能跳转 默认false
     public $go      = false;
-    public $maxPage = 120;
+    public $maxPage = 0;
     protected function renderPageButtons()
     {
         $pageCount = $this->pagination->getPageCount();
         if ($pageCount < 2 && $this->hideOnSinglePage) {
             return '';
         }
-        if ($pageCount > $this->maxPage) {
+        if ($pageCount > $this->maxPage && $this->maxPage > 0) {
             $pageCount = $this->maxPage;
         }
 
@@ -36,7 +36,7 @@ class GoLinkPager extends LinkPager
         }
         // internal pages
         list($beginPage, $endPage) = $this->getPageRange();
-        if ($endPage >= $this->maxPage) {
+        if ($endPage >= $this->maxPage && $this->maxPage > 0) {
             $endPage = $this->maxPage - 1;
         }
         for ($i = $beginPage; $i <= $endPage; ++$i) {
